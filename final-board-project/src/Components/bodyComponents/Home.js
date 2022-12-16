@@ -44,7 +44,7 @@ const deleteBoard = async (id) => {
       <button
         type="button"
         onClick={() => setBoardClick(true)}
-        className="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none shadow-indigo-200 active:shadow-none active:scale-95 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed"
+        className="mt-10 px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none shadow-indigo-200 active:shadow-none active:scale-95 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed"
       >
         Create a new Workspace
       </button>
@@ -57,13 +57,15 @@ const deleteBoard = async (id) => {
               <Link to={`/tasks/${ele.id}`} className="w-48 h-48" key={ele.id}>
                 <Board props={ele} />
               </Link>
+              <div className="flex">
               <button className="flex justify-center w-full px-4 py-2 font-bold text-center text-white bg-indigo-500 border-indigo-700 rounded hover:bg-indigo-400 hover:border-indigo-500" onClick={()=>setSelectedBoardId(ele.id)}>Edit</button>
               {selectedBoardId === ele.id && (<EditButtonForm taskId={ele.id} onClose={()=> setSelectedBoardId(null)}/>)}
 
 
-            {/* delete the baord from firebase button */}
-              <button onClick={() => {deleteBoard(ele.id)}}>Delete</button>
+              <button className="flex justify-center w-full px-4 py-2 font-bold text-center text-white bg-red-500 border-red-700 rounded hover:bg-red-400 hover:border-red-500" onClick={() => {deleteBoard(ele.id)}}>Delete</button>
 
+
+              </div>
               </div>
             );
           })

@@ -6,19 +6,26 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import db from "../../utils/firebase";
 
 export default function BoardForm(props) {
-  async function addingNotes(title) {
-    await addDoc(collection(db, "boards", `${props.boardId}`), {
-      name: title,
-      tasks: [],
+  async function addingNotes(title, description, dueDate, priority, progress) {
+    await addDoc(collection(db, `boards/${props.boardId}/tasks`), {
+      title: title,
+      description: description,
+      dueDate: dueDate,
+      priority: priority,
+      progress: progress,
     });
   }
 
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState(null);
+  const [dueDate, setDueDate] = useState(null);
+  const [priority, setPriority] = useState(null);
+  const [progress, setProgress] = useState(null);
 
   const saveDoc = (e) => {
     e.preventDefault();
 
-    addingNotes(title);
+    addingNotes(title, description, dueDate, priority, progress);
   };
 
   return props.trigger ? (
@@ -54,31 +61,42 @@ export default function BoardForm(props) {
             onChange={(e) => setTitle(e.target.value)}
             type="text"
             placeholder="task"
-            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
-            id="username"
+            className="w-full  px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
           />
           <textarea
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             type="text"
             placeholder="describtion"
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
-            id="username"
+            required
           ></textarea>
           <input
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setDueDate(e.target.value)}
             type="date"
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
-            id="username"
+            required
           />
           <select
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setPriority(e.target.value)}
             placeholder="priority"
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
-            id="username"
+            required
           >
             <option value={"High"}>High Priority</option>
             <option value={"Medium"}>Normal Priority </option>
             <option value={"Low"}>Low Priority</option>
+          </select>
+          <select
+            onChange={(e) => setProgress(e.target.value)}
+            placeholder="priority"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline "
+            id="username"
+            required
+          >
+            <option value={"todo"}>ToDo</option>
+            <option value={"inProgress"}>In Progress </option>
+            <option value={"blocked"}>Blocked</option>
+            <option value={"completed"}>Completed</option>
           </select>
         </div>
         <button
