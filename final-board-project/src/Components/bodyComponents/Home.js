@@ -68,7 +68,7 @@ const deleteBoard = async (id) => {
       </button>
 
       
-      <button className={"view-btn"}  onClick={() => updateButton(!toggleViewMode, cName)}>
+      <button className="flex justify-center w-fit capitalize px-4 py-2 font-bold text-center text-white bg-indigo-500 border-indigo-700 rounded hover:bg-indigo-400 hover:border-indigo-500"  onClick={() => updateButton(!toggleViewMode, cName)}>
         {!toggleViewMode ? 'grid' : 'list'}
       </button>
       

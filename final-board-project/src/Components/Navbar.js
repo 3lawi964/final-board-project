@@ -84,7 +84,7 @@ export default function Navbar(props) {
                   <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                       <Link to="/signup">
-                        <h2 className="text-2xl font-bold">SIGN UP FOR KANBAN TASKS</h2>
+                        <h2 className="text-2xl font-bold">Welcome to KANBAN TASKS</h2>
                       </Link>
                       <div className="md:hidden">
                         <button

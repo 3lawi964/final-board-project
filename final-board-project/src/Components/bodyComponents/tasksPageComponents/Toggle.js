@@ -11,8 +11,7 @@ export default function Toggle() {
 
         <div>
   <div className="flex justify-end p-5">
-  <button
-    className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+  <button 
     onClick={() => setToggleViewMode(!toggleViewMode)}
   >
     {!toggleViewMode ? 'grid' : 'list'}
