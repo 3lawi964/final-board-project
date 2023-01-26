@@ -17,15 +17,15 @@ export default function ColumnsComponent({ id }) {
     );
 
     return unsubscribe;
-  }, []);
+  }, [id]);
   console.log(boardsTasks);
   return boardsTasks ? (
-    <div className="flex gap-10 h-96 w-full">
-      <section className="flex items-center justify-around flex-col h-full gap-4 w-1/4">
+    <div className="flex gap-10 h-full w-screen flex-col md:flex-row px-6 items-center justify-center">
+      <section className="flex items-center justify-around flex-col h-full gap-4 md:w-1/4 w-full ">
         <h4 className="bg-gray-200 rounded-3xl py-1 px-4 font-bold text-sm text-gray-500">
           TODO
         </h4>
-        <div className="border border-gray-200 rounded-lg p-2 h-full w-full">
+        <div className="border flex flex-col gap-2  border-gray-200 rounded-lg p-2 h-full w-full">
           {boardsTasks
             .filter((ele) => ele.progress === "todo")
             .map((task) => {
@@ -57,11 +57,11 @@ export default function ColumnsComponent({ id }) {
             })}
         </div>
       </section>
-      <section className="flex items-center justify-around flex-col h-full gap-4 w-1/4">
+      <section className="flex items-center justify-around flex-col h-full gap-4 md:w-1/4 w-full">
         <h4 className="bg-indigo-200 rounded-3xl py-1 px-4 font-bold text-sm text-indigo-500">
           In Progress
         </h4>
-        <div className="border border-indigo-200 rounded-lg p-2 h-full w-full">
+        <div className="border border-indigo-200 rounded-lg p-2 h-full w-full flex flex-col gap-2 ">
           {boardsTasks
             .filter((ele) => ele.progress === "inProgress")
             .map((task) => {
@@ -95,11 +95,11 @@ export default function ColumnsComponent({ id }) {
             })}
         </div>
       </section>
-      <section className="flex items-center justify-around flex-col h-full gap-4 w-1/4">
+      <section className="flex items-center justify-around flex-col h-full gap-4 md:w-1/4 w-full">
         <h4 className="bg-red-200 rounded-3xl py-1 px-4 font-bold text-sm text-red-500">
           Blocked
         </h4>
-        <div className="border border-red-200 rounded-lg p-2 h-full w-full">
+        <div className="border flex flex-col gap-2  border-red-200 rounded-lg p-2 h-full w-full">
           {boardsTasks
             .filter((ele) => ele.progress === "blocked")
             .map((task) => {
@@ -129,11 +129,11 @@ export default function ColumnsComponent({ id }) {
             })}
         </div>
       </section>
-      <section className="flex items-center justify-around flex-col h-full gap-4 w-1/4">
+      <section className="flex items-center justify-around flex-col h-full gap-4 md:w-1/4 w-full">
         <h4 className="bg-green-200 rounded-3xl py-1 px-4 font-bold text-sm text-green-500">
           Completed
         </h4>
-        <div className="border border-green-200 rounded-lg p-2 h-full w-full">
+        <div className="border flex flex-col gap-2  border-green-200 rounded-lg p-2 h-full w-full">
           {boardsTasks
             .filter((ele) => ele.progress === "completed")
             .map((task) => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import {firebase} from "../../utils/firebase"
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 // import { async } from "@firebase/util";
 import db from "../../utils/firebase";
 
