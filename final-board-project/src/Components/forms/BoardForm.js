@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-// import {firebase} from "../../utils/firebase"
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-// import { async } from "@firebase/util";
+import { addDoc, collection } from "firebase/firestore";
 import db from "../../utils/firebase";
 
 export default function BoardForm(props) {
   async function addingNotes(title) {
     await addDoc(collection(db, "boards"), {
       name: title,
-      tasks: [],
     });
   }
 

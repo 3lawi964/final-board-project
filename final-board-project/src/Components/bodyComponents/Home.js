@@ -6,56 +6,48 @@ import Board from "./Board";
 import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 import { collection, onSnapshot } from "firebase/firestore";
-import EditButtonForm from "../forms/EditButtonForm"; 
-import {deleteDoc, doc} from "firebase/firestore";
-import Toggle from "../bodyComponents/tasksPageComponents/Toggle.js";
-
+import EditButtonForm from "../forms/EditButtonForm";
+import { deleteDoc, doc } from "firebase/firestore";
+// import Toggle from "../bodyComponents/tasksPageComponents/Toggle.js";
 
 export default function Home() {
   const [boards, setBoards] = useState(null);
-  useEffect(
-    () => {
-      const unsubscribe = onSnapshot(collection(db, "boards"), (snapshot) =>{
-        setBoards(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      }
-      )
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "boards"), (snapshot) => {
+      setBoards(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
 
-      return unsubscribe
-      },
-    []
-  );
-
+    return unsubscribe;
+  }, []);
 
   // delete button
 
-const deleteBoard = async (id) => {
-  const docRef = doc(db, "boards", id);
+  const deleteBoard = async (id) => {
+    const docRef = doc(db, "boards", id);
 
-  deleteDoc(docRef)
-  .then(() => {
-      // console.log("Entire Document has been deleted successfully.")
-  })
-  .catch(error => {
-      console.log(error);
-  });
-
-}
-  const [selectedBoardId, setSelectedBoardId] = useState(null)
+    deleteDoc(docRef)
+      .then(() => {
+        // console.log("Entire Document has been deleted successfully.")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
   const [boardClick, setBoardClick] = useState(false);
-  const [cName, setClassName] = useState('list');
-  const [toggleViewMode, setToggleViewMode] = useState(false);
+  // const [cName, setClassName] = useState("list");
+  // const [toggleViewMode, setToggleViewMode] = useState(false);
 
-  const updateButton = (toggle, name) => {
-    setToggleViewMode(toggle);
-    if (name === 'list') {
-    setClassName('grid');
-    }
+  //   const updateButton = (toggle, name) => {
+  //     setToggleViewMode(toggle);
+  //     if (name === 'list') {
+  //     setClassName('grid');
+  //     }
 
-    if(name === 'grid') {
-      setClassName('list');
-    }
-};
-
+  //     if(name === 'grid') {
+  //       setClassName('list');
+  //     }
+  // };
 
   return (
     <div className="relative flex flex-col items-center justify-center gap-10 bg-gray-50">
@@ -67,30 +59,51 @@ const deleteBoard = async (id) => {
         Create a new Workspace
       </button>
 
-      
-      <button className="flex justify-center w-fit capitalize px-4 py-2 font-bold text-center text-white bg-indigo-500 border-indigo-700 rounded hover:bg-indigo-400 hover:border-indigo-500"  onClick={() => updateButton(!toggleViewMode, cName)}>
-        {!toggleViewMode ? 'grid' : 'list'}
-      </button>
-      
+      {/* <button
+        className="flex justify-center w-fit capitalize px-4 py-2 font-bold text-center text-white bg-indigo-500 border-indigo-700 rounded hover:bg-indigo-400 hover:border-indigo-500"
+        onClick={() => updateButton(!toggleViewMode, cName)}
+      >
+        {!toggleViewMode ? "grid" : "list"}
+      </button> */}
 
       <BoardForm trigger={boardClick} setTrigger={setBoardClick} />
-      <div className={`flex flex-wrap items-center justify-center gap-16 mt-10 ${cName}`}>
+      <div
+        className={`flex flex-wrap items-center justify-center gap-16 mt-10 `}
+      >
         {boards ? (
           boards.map((ele) => {
             return (
               <div>
-              <Link to={`/tasks/${ele.id}`} className="w-48 h-48" key={ele.id}>
-                <Board props={ele} />
-              </Link>
-              <div className="flex">
-              <button className="flex justify-center w-full px-4 py-2 font-bold text-center text-white bg-indigo-500 border-indigo-700 rounded hover:bg-indigo-400 hover:border-indigo-500" onClick={()=>setSelectedBoardId(ele.id)}>Edit</button>
-              {selectedBoardId === ele.id && (<EditButtonForm taskId={ele.id} onClose={()=> setSelectedBoardId(null)}/>)}
+                <Link
+                  to={`/tasks/${ele.id}`}
+                  className="w-48 h-48"
+                  key={ele.id}
+                >
+                  <Board props={ele} />
+                </Link>
+                <div className="flex">
+                  <button
+                    className="flex justify-center w-full px-4 py-2 font-bold text-center text-white bg-indigo-500 border-indigo-700 rounded hover:bg-indigo-400 hover:border-indigo-500"
+                    onClick={() => setSelectedBoardId(ele.id)}
+                  >
+                    Edit
+                  </button>
+                  {selectedBoardId === ele.id && (
+                    <EditButtonForm
+                      taskId={ele.id}
+                      onClose={() => setSelectedBoardId(null)}
+                    />
+                  )}
 
-
-              <button className="flex justify-center w-full px-4 py-2 font-bold text-center text-white bg-red-500 border-red-700 rounded hover:bg-red-400 hover:border-red-500" onClick={() => {deleteBoard(ele.id)}}>Delete</button>
-
-
-              </div>
+                  <button
+                    className="flex justify-center w-full px-4 py-2 font-bold text-center text-white bg-red-500 border-red-700 rounded hover:bg-red-400 hover:border-red-500"
+                    onClick={() => {
+                      deleteBoard(ele.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             );
           })
@@ -100,7 +113,6 @@ const deleteBoard = async (id) => {
           </div>
         )}
       </div>
-
     </div>
   );
 }

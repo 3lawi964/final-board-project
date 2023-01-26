@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import db from "../../../utils/firebase";
 import Spinner from "../Spinner";
 import TaskForm from "../../forms/TaskForm";
@@ -35,7 +35,7 @@ export default function TaskComponent() {
     );
 
     return unsubscribe;
-  }, []);
+  }, [id]);
 
   // const [tasks, setTasks] = useState(null);
   // useEffect(() => {
@@ -54,7 +54,7 @@ export default function TaskComponent() {
   if (!boardsTasks) return <Spinner />;
 
   return (
-    <div className="flex flex-col items-center  h-screen gap-16 px-32">
+    <div className="flex flex-col items-center h-screen gap-16 px-32 py-16">
       <button
         type="button"
         onClick={() => setBoardClick(true)}
